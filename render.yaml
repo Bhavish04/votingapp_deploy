@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: votingapp
+    runtime: node
+    buildCommand: npm install && node server/db/seed.js
+    startCommand: node server/index.js
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 10000
+    disk:
+      name: data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
