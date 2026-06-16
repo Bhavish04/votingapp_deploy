@@ -20,6 +20,11 @@ app.get('/{*path}', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`✅ VoteDesk running at http://localhost:${PORT}`);
+  try {
+    await require('./db/seed')();
+  } catch (e) {
+    console.log('Seed skipped:', e.message);
+  }
 });
